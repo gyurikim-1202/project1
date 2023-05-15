@@ -12,11 +12,10 @@ import java.sql.SQLException;
 
 //boards 테이블에서 bwriter가 winter인 게시물 정보 가져오기
 public class BoardSelectExample {
-
 	public static void main(String[] args) {
 		Connection conn = null;
 		try {
-			//JDBC 등록
+			//JDBC Driver 등록
 			Class.forName("oracle.jdbc.OracleDriver");
 			
 			//연결하기
@@ -24,21 +23,21 @@ public class BoardSelectExample {
 				"jdbc:oracle:thin:@localhost:1521/xe",
 				"java",
 				"12345"
-				);
+				);	
 			
 			//매개변수화된 SQL 문 작성
 			String sql = "" +
-					"SELECT bno, btitle, bcontent, bdate, bfilename, bfiledata " +
-					"FROM boards " +
-					"WHERE bwriter=?";
+				"SELECT bno, btitle, bcontent, bwriter, bdate, bfilename, bfiledata " +
+				"FROM boards " +
+				"WHERE bwriter=?";
 			
 			//PreparedStatement 얻기 및 값 지정
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "winter");
 			
-			//SQL문 실행 후 ReseultSet을 통해 데이터 읽기
+			//SQL 문 실행 후, ResultSet을 통해 데이터 읽기
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while(rs.next()) {		
 				//데이터 행을 읽고 Board 객체 생성
 				Board board = new Board();
 				board.setBno(rs.getInt("bno"));
@@ -56,7 +55,7 @@ public class BoardSelectExample {
 				Blob blob = board.getBfiledata();
 				if(blob != null) {
 					InputStream is = blob.getBinaryStream();
-					OutputStream os = new FileOutputStream("c:/Temp/" + board.getBfilename());
+					OutputStream os = new FileOutputStream("C:/Temp/" + board.getBfilename());
 					is.transferTo(os);
 					os.flush();
 					os.close();
@@ -71,12 +70,11 @@ public class BoardSelectExample {
 			e.printStackTrace();
 		} finally {
 			if(conn != null) {
-				try {
+				try { 
 					//연결 끊기
-					conn.close();
+					conn.close(); 
 				} catch (SQLException e) {}
 			}
 		}
 	}
-
 }

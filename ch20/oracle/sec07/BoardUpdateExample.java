@@ -7,11 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 //게시판 데이터 수정
 public class BoardUpdateExample {
-
 	public static void main(String[] args) {
 		Connection conn = null;
 		try {
-			//JDBC 등록
+			//JDBC Driver 등록
 			Class.forName("oracle.jdbc.OracleDriver");
 			
 			//연결하기
@@ -21,7 +20,7 @@ public class BoardUpdateExample {
 				"12345"
 				);
 			
-			//매개변수화된 SQL 문 작성
+			//매개변수화된 SQL문 작성
 			String sql = new StringBuilder()
 					.append("UPDATE boards SET ")
 					.append("btitle=?, ")
@@ -37,9 +36,9 @@ public class BoardUpdateExample {
 			pstmt.setString(2, "눈으로 만든 사람");
 			pstmt.setString(3, "snowman.jpg");
 			pstmt.setBlob(4, new FileInputStream("src/ch20/oracle/sec07/snowman.jpg"));
-			pstmt.setInt(5, 1); //boards 테이블에 있는 게시물 번호(bno) 지정
+			pstmt.setInt(5, 3);  //boards 테이블에 있는 게시물 번호(bno) 지정
 			
-			//SQL 문 실행
+			//SQL문 실행
 			int rows = pstmt.executeUpdate();
 			System.out.println("수정된 행 수: " + rows);
 			
@@ -49,13 +48,11 @@ public class BoardUpdateExample {
 			e.printStackTrace();
 		} finally {
 			if(conn != null) {
-				try {
+				try { 
 					//연결 끊기
-					conn.close();
+					conn.close(); 
 				} catch (SQLException e) {}
 			}
 		}
-
 	}
-
 }

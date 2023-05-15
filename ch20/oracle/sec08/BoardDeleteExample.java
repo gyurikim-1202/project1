@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class BoardDeleteExample {
-//boards 테이블에 저장된 게시물 정보를 삭제
 	public static void main(String[] args) {
 		Connection conn = null;
 		try {
-			//JDBC 등록
+			//JDBC Driver 등록
 			Class.forName("oracle.jdbc.OracleDriver");
 			
 			//연결하기
@@ -18,7 +17,7 @@ public class BoardDeleteExample {
 				"jdbc:oracle:thin:@localhost:1521/xe",
 				"java",
 				"12345"
-				);
+				);	
 			
 			//매개변수화된 SQL 문 작성
 			String sql = "DELETE FROM boards WHERE bwriter=?";
@@ -37,13 +36,11 @@ public class BoardDeleteExample {
 			e.printStackTrace();
 		} finally {
 			if(conn != null) {
-				try {
+				try { 
 					//연결 끊기
-					conn.close();
+					conn.close(); 
 				} catch (SQLException e) {}
 			}
 		}
-
 	}
-
 }

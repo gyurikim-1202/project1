@@ -3,9 +3,10 @@ package ch20.oracle.sec09.exam02;
 
 import java.sql.Blob;
 import java.sql.Date;
+
 import lombok.Data;
 
-@Data
+@Data //Constructor, Getter, Setter, hashCode(), equals(), toString() 자동 생성
 public class Board {
 	private int bno;
 	private String btitle;
